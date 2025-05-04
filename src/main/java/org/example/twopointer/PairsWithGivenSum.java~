@@ -1,0 +1,62 @@
+package org.example.twopointer;
+
+import java.util.ArrayList;
+
+public class PairsWithGivenSum {
+    /**
+     * Given a sorted array of integers (not necessarily distinct) A and an integer B,
+     * find and return how many pair of integers ( A[i], A[j] ) such that i != j have sum equal to B.
+     *
+     * Since the number of such pairs can be very large, return number of such pairs modulo (109 + 7).
+     */
+
+    public static void main(String[] args) {
+        int[] A = {1, 1, 1};
+        ArrayList<Integer> list = new ArrayList<>(A.length);
+        for (int i = 0; i < A.length; i++) {
+            list.add(A[i]);
+        }
+        int B = 2;
+
+        System.out.println(new PairsWithGivenSum().solve(list, B));
+
+    }
+
+    public int solve(ArrayList<Integer> A, int B) {
+        int i = 0;
+        int j = A.size()-1;
+        double count = 0;
+        int mod = (int) (Math.pow(10,9) + 7);
+        while (i < j) {
+            if (A.get(i) + A.get(j) == B) {
+                int counti = 0;
+                int x = A.get(i);
+                while (A.get(i) == x && i < j) {
+                    counti++;
+                    i++;
+                }
+                int countj = 0;
+                int y = A.get(j);
+                while (A.get(j) == y && i < j) {
+                    countj++;
+                    j--;
+                }
+
+                if (x == y) {
+                    int temp = counti + countj;
+                    count = (count%mod + ((temp%mod * (temp+1))/2)%mod)%mod;
+                } else {
+                    count = (count%mod + (counti * countj)%mod)%mod;
+                }
+            } else {
+                if ((A.get(i) + A.get(j)) < B) {
+                    i++;
+                } else {
+                    j--;
+                }
+            }
+        }
+        return (int) (count%mod);
+    }
+}
+

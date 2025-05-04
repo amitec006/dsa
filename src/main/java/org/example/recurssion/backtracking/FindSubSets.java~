@@ -1,0 +1,20 @@
+package org.example.recurssion.backtracking;
+
+import java.util.ArrayList;
+
+public class FindSubSets {
+    public static void main(String[] args) {
+
+    }
+
+    private ArrayList<String> subSets(String input, String output) {
+        if (output.length() == input.length()) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add("");
+            return list;
+        }
+        input = input.substring(i);
+        output = input.substring(0, i) + input.substring(i+1);
+        subSets(input, output, )
+    }
+}

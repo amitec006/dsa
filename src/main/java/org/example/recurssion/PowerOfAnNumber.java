@@ -1,0 +1,31 @@
+package org.example.recurssion;
+
+public class PowerOfAnNumber {
+    public static void main(String[] args) {
+        System.out.println(new PowerOfAnNumber().fastPower(2, 9));
+    }
+
+    private int power (int a, int pow){
+        if (pow == 0) {
+            return 1;
+        }
+
+        return a * power(a, pow-1);
+    }
+
+    private int fastPower (int a, int pow){
+        if (pow == 0 || pow == 1) {
+            return 1;
+        }
+
+        int rem = pow%2;
+        int subProb = power(a, pow/2);
+        if (rem == 0) {
+            return subProb * subProb;
+        } else {
+            return a * subProb * subProb;
+        }
+    }
+}
+
+

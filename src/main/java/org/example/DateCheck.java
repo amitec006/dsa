@@ -1,0 +1,69 @@
+package org.example;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
+public class DateCheck {
+
+    public static void main(String[] args) {
+            calculateFirstRepaymentDate("1st",null);
+    }
+
+    private static LocalDate calculateFirstRepaymentDate(String meetingDate, LocalDate firstRepaymentDate) {
+
+        if (meetingDate.length() > 2){
+            meetingDate = meetingDate.substring(0, meetingDate.length()-2);
+        }
+        String mDate = checkMeetDate(meetingDate);
+        String expectedDisDate =  LocalDate.of(2025,04,02).format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+
+        SimpleDateFormat formatter = new SimpleDateFormat("d MMM yyyy");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(formatter.parse(expectedDisDate));
+            cal.add(Calendar.DAY_OF_MONTH, 30);
+
+            int minMaxDiff = 60 - 30;
+
+            for (int i = 1; i <= minMaxDiff; i++) {
+                String dateAfterr = formatter.format(cal.getTime());
+                String[] checkOne = dateAfterr.split(" ");
+                String cd = checkOne[0];
+                if (!mDate.equals(cd)) {
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                } else {
+                    break;
+                }
+            }
+
+            String dd = formatter.format(cal.getTime());
+            String[] dateAfter = dd.split(" ");
+            String comingDate = dateAfter[0];
+            int d = cal.get(Calendar.DAY_OF_WEEK);
+
+            if (mDate.equals(comingDate)){
+                if (d == 0) {
+                    cal.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                return LocalDateTime.ofInstant(cal.toInstant(), cal.getTimeZone().toZoneId()).toLocalDate();
+            } else {
+                return firstRepaymentDate;
+            }
+
+        } catch (ParseException e) {
+            return firstRepaymentDate;
+        }
+    }
+
+    private static String checkMeetDate(String meetingDate) {
+        String regex = "^0+(?!$)";
+        meetingDate = meetingDate.replaceAll(regex, "");
+
+        return meetingDate;
+    }
+}

@@ -1,0 +1,56 @@
+package org.example.tree;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class DeserializeTheBinaryTree {
+    /**
+     * You are given an integer array A denoting the Level Order Traversal of the Binary Tree.
+     * You have to Deserialize the given Traversal in the Binary Tree and return the root of the Binary Tree.
+     *
+     * NOTE:
+     * In the array, the NULL/None child is denoted by -1.
+     * For more clarification check the Example Input.
+     */
+
+    public static void main(String[] args) {
+
+    }
+
+
+    /**
+     * Deserializes the binary tree given the level order traversal of the binary tree.
+     * 
+     * @param A the level order traversal of the binary tree
+     * @return the root of the deserialized binary tree
+     */
+    public TreeNode deserialize(ArrayList<Integer> A) {
+        if (A == null || A.isEmpty() || A.get(0) == -1) return null;
+
+        TreeNode root = new TreeNode(A.get(0));
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int i = 1;
+        while (i < A.size()) {
+            TreeNode current = queue.poll();
+
+            // Process left child
+            if (A.get(i) != -1) {
+                current.left = new TreeNode(A.get(i));
+                queue.add(current.left);
+            }
+            i++;
+
+            // Process right child
+            if (i < A.size() && A.get(i) != -1) {
+                current.right = new TreeNode(A.get(i));
+                queue.add(current.right);
+            }
+            i++;
+        }
+
+        return root;
+    }
+}

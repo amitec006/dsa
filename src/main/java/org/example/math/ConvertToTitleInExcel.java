@@ -1,0 +1,33 @@
+package org.example.math;
+
+public class ConvertToTitleInExcel {
+    /**
+     * Given a positive integer A, return its corresponding
+     * column title as it appears in an Excel sheet.
+     *
+     * For example:
+     *
+     *     1 -> A
+     *     2 -> B
+     *     3 -> C
+     *     ...
+     *     26 -> Z
+     *     27 -> AA
+     *     28 -> AB
+     * @param args
+     */
+    public static void main(String[] args) {
+        System.out.println(new ConvertToTitleInExcel().convertToTitle(28));
+    }
+
+    public String convertToTitle(int A) {
+        StringBuilder result = new StringBuilder();
+        while (A > 0) {
+            A--; // Adjust for 0-based index
+            char ch = (char) ('A' + (A % 26));
+            result.append(ch);
+            A /= 26;
+        }
+        return result.reverse().toString();
+    }
+}

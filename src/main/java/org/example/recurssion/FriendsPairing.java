@@ -1,0 +1,15 @@
+package org.example.recurssion;
+
+public class FriendsPairing {
+    public static void main(String[] args) {
+        System.out.println(new FriendsPairing().solve(3));
+    }
+
+    private int solve(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+
+        return solve(n-1) + (n-1)*solve(n-2);
+    }
+}

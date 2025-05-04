@@ -1,0 +1,22 @@
+package org.example.twopointer;
+
+import java.util.ArrayList;
+
+public class PairsCountWithDiffOfB {
+    /**
+     * Given an one-dimensional integer array A of size N and an integer B.
+     *
+     * Count all distinct pairs with difference equal to B.
+     *
+     * Here a pair is defined as an integer pair (x, y),
+     * where x and y are both numbers in the array and their absolute difference is B.
+     */
+
+    public static void main(String[] args) {
+        int[] A = {8, 12, 16, 4, 0, 20};
+        int B = 4;
+    }
+
+    public int solve(ArrayList<Integer> A, int B) {
+    }
+}

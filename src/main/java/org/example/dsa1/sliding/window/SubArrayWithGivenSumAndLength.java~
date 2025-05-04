@@ -1,0 +1,43 @@
+package org.example.dsa1.sliding.window;
+
+public class SubArrayWithGivenSumAndLength {
+    /**
+     * Given an array A of length N. Also given are integers B and C.
+     *
+     * Return 1 if there exists a subarray with length B having sum C and 0 otherwise
+     * @param args
+     */
+
+    public static void main(String[] args) {
+        int[] A = {4, 3, 2, 6, 1};
+        int B = 3;
+        int C = 11;
+        System.out.println(new SubArrayWithGivenSumAndLength().solve(A, B, C));
+    }
+    public int solve(int[] A, int B, int C) {
+        int n = A.length;
+
+        if (B > n) return 0; // If B is greater than array length, return 0
+
+        int sum = 0;
+bbh
+        // Compute the sum of the first B elements
+        for (int i = 0; i < B; i++) {
+            sum += A[i];
+        }
+
+        // If the first window sum matches C, return 1
+        if (sum == C) return 1;
+
+        // Slide the window across the array
+        for (int i = B; i < n; i++) {
+            sum += A[i];        // Add the new element
+            sum -= A[i - B];    // Remove the leftmost element of the previous window
+
+            if (sum == C) return 1; // Check if the sum matches C
+        }
+
+        return 0; // No subarray found
+    }
+
+}
