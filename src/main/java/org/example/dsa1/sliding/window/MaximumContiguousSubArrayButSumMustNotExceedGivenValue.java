@@ -15,6 +15,12 @@ public class MaximumContiguousSubArrayButSumMustNotExceedGivenValue {
         System.out.println(new MaximumContiguousSubArrayButSumMustNotExceedGivenValue().maxSubarray(B, C));
     }
 
+    /**
+     * Uses a sliding window approach to efficiently find the maximum sum
+     * Expands the window by adding elements from the end of the array
+     * If the sum exceeds B, shrinks the window from the start until it's valid again
+     * Keeps track of the maximum valid sum found
+     */
     public int maxSubarray(int B, int[] C) {
         int maxSum = 0;
         int sum = 0;

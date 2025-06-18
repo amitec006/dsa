@@ -14,6 +14,7 @@ public class PerfectNumber {
     }
 
     private static boolean isPerfect(int n) {
+        if (n <= 2) return false;
         int sum = 1;
         for (int i = 2; i <= Math.sqrt(n); i++) {
             if (n % i == 0) {
