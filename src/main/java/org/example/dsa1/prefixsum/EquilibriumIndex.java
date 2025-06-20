@@ -38,7 +38,6 @@ public class EquilibriumIndex {
                 return i;
             }
             leftSum += arr[i];
-
         }
         return -1;
     }

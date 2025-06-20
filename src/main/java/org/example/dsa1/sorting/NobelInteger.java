@@ -8,9 +8,52 @@ public class NobelInteger {
      * @param args
      */
     public static void main(String[] args) {
-        int[] A = {-10,1,1,3,100};
-        System.out.println(countNobelIntegers(A));
+        int[] A = {-4,7,5,3,5,-4,2,-1,-9,-8,-3,0,9,-7,-4,-10,-4,2,6,1,-2,-3,-1,-8,0,-8,-7,-3,5,-1,-8,-8,8,-1,-3,3,6,1,-8,-1,3,-9,9,-6,7,8,-6,5,0,3,-4,1,-10,6,3,-8,0,6,-9,-5,-5,-6,-3,6,-5,-4,-1,3,7,-6,5,-8,-5,4,-3,4,-6,-7,0,-3,-2,6,8,-2,-6,-7,1,4,9,2,-10,6,-2,9,2,-4,-4,4,9,5,0,4,8,-3,-9,7,-8,7,2,2,6,-9,-10,-4,-9,-5,-1,-6,9,-10,-1,1,7,7,1,-9,5,-1,-3,-3,6,7,3,-4,-5,-4,-7,9,-6,-2,1,2,-1,-7,9,0,-2,-2,5,-10,-1,6,-7,8,-5,-4,1,-9,5,9,-2,-6,-2,-9,0,3,-10,4,-6,-6,4,-3,6,-7,1,-3,-5,9,6,2,1,7,-2,5};
+        System.out.println(isNobelInteger(A));
     }
+
+    public static int isNobelInteger(int[] A) {
+        int n = A.length;
+        Arrays.sort(A);
+        // Check if the last element is 0 meaning it is a Nobel integer
+        // as there is no element greater than 0
+        if (A[n-1] == 0) {
+            return 1;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (A[i] == n - i - 1) {
+                // Either this is the last element, or next element is greater
+                //check if current should not be equal to next element, its an edge case where all elements are same and equal in number
+                // like {2,2} here 2 is not Nobel integer as there is no element greater than 2 to remove this check we can write
+                // A[i] != A[i+1]
+                if (i == n - 1 || A[i] != A[i + 1]) {
+                    return 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     *     Arrays.sort(A); // Sort in ascending order
+     *         int count = 0;
+     *         int n = A.length;
+     *
+     *         if (A[n - 1] == 0) {
+     *             return 1;
+     *         }
+     *
+     *         for (int i = n - 2; i >= 0; i--) { // Iterate in reverse order
+     *             if (A[i] != A[i + 1]) {
+     *                 count = n - 1 - i;
+     *             }
+     *             if (A[i] == count) {
+     *                 return 1;
+     *             }
+     *         }
+     *         return -1;
+     */
 
 
     /**
