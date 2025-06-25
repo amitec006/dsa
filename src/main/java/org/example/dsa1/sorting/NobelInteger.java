@@ -4,7 +4,12 @@ import java.util.Arrays;
 
 public class NobelInteger {
     /**
+     *Given an integer array A, find if an integer p exists in the array
+     * such that the number of integers greater than p in the array equals p.
      *
+     * A = [3, 2, 1, 3]
+     *
+     * For integer 2, there are 2 greater elements in the array.
      * @param args
      */
     public static void main(String[] args) {
