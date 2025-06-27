@@ -14,4 +14,14 @@ public class CountOccuranceOfBob {
         }
         return count;
     }
+
+    public static int countBobOccurrences2(String A) {
+        int count = 0;
+        for (int i = 0; i <= A.length() - 3; i++) {
+            if (A.startsWith("bob", i)) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
