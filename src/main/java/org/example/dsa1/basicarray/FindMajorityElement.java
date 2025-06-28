@@ -27,8 +27,8 @@ public class FindMajorityElement {
             }
         }
         int freq = 0;
-        for (int i = 0; i < n; i++) {
-            if (A[i] == majorityElement) {
+        for (int j : A) {
+            if (j == majorityElement) {
                 freq++;
             }
         }
