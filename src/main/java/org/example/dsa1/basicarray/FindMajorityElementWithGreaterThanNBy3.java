@@ -22,16 +22,16 @@ public class FindMajorityElementWithGreaterThanNBy3 {
         int first = Integer.MAX_VALUE;
         int second = Integer.MAX_VALUE;
 
-        for (int i = 0; i < n; i++) {
-            if (first == A[i]) {
+        for (int k : A) {
+            if (first == k) {
                 count1++;
-            } else if (second == A[i]) {
+            } else if (second == k) {
                 count2++;
             } else if (count1 == 0) {
-                first = A[i];
+                first = k;
                 count1 = 1;
             } else if (count2 == 0) {
-                second = A[i];
+                second = k;
                 count2 = 1;
             } else {
                 count1--;
@@ -41,10 +41,10 @@ public class FindMajorityElementWithGreaterThanNBy3 {
 
         count1 = 0;
         count2 = 0;
-        for (int i = 0; i < n; i++) {
-            if (A[i] == first) {
+        for (int j : A) {
+            if (j == first) {
                 count1++;
-            } else if (A[i] == second) {
+            } else if (j == second) {
                 count2++;
             }
         }
