@@ -105,33 +105,25 @@ public class LengthOfLongestConsecutiveOnesBySwappingAtmostOneZeroWithOne {
     public int solve3(String A) {
         int n = A.length();
         int totalOnes = 0;
-
         // Count total number of 1s
         for (char ch : A.toCharArray()) {
             if (ch == '1') totalOnes++;
         }
-
         int maxLen = 0;
         int left = 0;
-
         // Use sliding window technique with 0s as separators
         while (left < n) {
             if (A.charAt(left) == '0') {
                 left++;
                 continue;
             }
-
             int right = left;
             while (right < n && A.charAt(right) == '1') {
                 right++;
             }
-
             int currLen = right - left;
-
             // Check if there's a zero in between next block of 1s
-            int next = right + 1;
             int nextLen = 0;
-
             if (right < n && A.charAt(right) == '0') {
                 int temp = right + 1;
                 while (temp < n && A.charAt(temp) == '1') {
