@@ -70,4 +70,46 @@ public class FlipProblemToGetMaxOne {
             return res;
         }
     }
+
+    /**
+     * Transform the string as:
+     *
+     * 0 → +1 (gain of 1)
+     *
+     * 1 → -1 (loss of 1)
+     *
+     * Now apply Kadane’s algorithm to find the subarray with maximum sum.
+     */
+
+    public int[] flip2(String A) {
+        if (!A.contains("0")) {
+            return new int[0];
+        }
+
+        int n = A.length();
+        int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+        int start = 0;
+        int l = -1, r = -1;
+
+        for (int i = 0; i < n; i++) {
+            int val = A.charAt(i) == '0' ? 1 : -1;
+
+            if (currSum < 0) {
+                currSum = val;
+                start = i;
+            } else {
+                currSum += val;
+            }
+
+            if (currSum > maxSum) {
+                maxSum = currSum;
+                l = start;
+                r = i;
+            }
+        }
+
+        return new int[]{l + 1, r + 1};  // convert 0-based to 1-based
+    }
+
 }
