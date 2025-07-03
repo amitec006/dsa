@@ -16,7 +16,7 @@ public class RainWaterTrap {
      */
     public static void main(String[] args) {
         int[] A = {0,1,0,2,1,0,1,3,2,1,2,1};
-        new RainWaterTrap().trap(A);
+        System.out.println(new RainWaterTrap().trap(A));
     }
 
     public int trap(final int[] A) {
