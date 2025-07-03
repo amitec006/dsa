@@ -22,24 +22,24 @@ public class RainWaterTrap {
     public int trap(final int[] A) {
         int[] left_max = new int[A.length];
         int[] right_max = new int[A.length];
-        int start = 0;
-        int end = A.length - 1;
-        while (start < A.length) {
-            if (start == 0) {
-                left_max[start] = A[start];
-            } else {
-                left_max[start] = Math.max(left_max[start - 1], A[start]);
-            }
-            if (end == A.length - 1) {
-                right_max[end] = A[end];
-            } else {
-                right_max[end] = Math.max(right_max[end + 1], A[end]);
-            }
+        int n = A.length;
+        int start = 0, end = n - 1;
+        while (start < n) {
+            left_max[start] = (start == 0) ? A[start] : Math.max(left_max[start - 1], A[start]);
+            right_max[end] = (end == n - 1) ? A[end] : Math.max(right_max[end + 1], A[end]);
             start++;
             end--;
         }
+
+        /**
+         * ignore the first and last element because they can’t trap water.
+         *
+         * For each bar i, the water that can be trapped above it is:
+         *
+         * min(left of i, right of i) - height at i, only if min > A[i].
+         */
         int sum = 0;
-        for (int i = 1; i < A.length-1; i++) {
+        for (int i = 1; i < n-1; i++) {
             int min = Math.min(left_max[i-1], right_max[i+1]);
             if (min > A[i]) {
                 sum += min - A[i];
