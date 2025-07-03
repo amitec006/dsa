@@ -10,23 +10,14 @@ public class MaximumContiguousSubArray {
         System.out.println(new MaximumContiguousSubArray().maxSubArray(A));
     }
 
-    public int maxSubArray(final int[] A) {
-        int n = A.length;
-        int maxSum = Integer.MIN_VALUE;
-        int currSum = 0;
+    public int maxSubArray(int[] A) {
+        int max_so_far = A[0];
+        int current_max = A[0];
 
-        for (int i = 0; i <= n - 1; i++) {
-            currSum += A[i];
-
-            if (currSum > maxSum) {
-                maxSum = currSum;
-            }
-
-            if (currSum < 0) {
-                currSum = 0;
-            }
+        for (int i = 1; i < A.length; i++) {
+            current_max = Math.max(A[i], current_max + A[i]);
+            max_so_far = Math.max(max_so_far, current_max);
         }
-
-        return maxSum;
+        return max_so_far;
     }
 }
