@@ -39,6 +39,38 @@ public class ContinuousSumQuery {
             int end = ints[1];
             int coins = ints[2];
             result[start - 1] += coins;
+            /**
+             * Each range {start, end, amount} (1-based index) means:
+             *
+             * Add amount to every element from index start to end (inclusive).
+             *
+             * To do this in O(1) time per query:
+             *
+             * Instead of updating each element in [start-1, end-1], we:
+             *
+             * Add amount at result[start-1]
+             *
+             * Subtract amount at result[end] (i.e., the next element after the end)
+             *
+             * Later, when we do the prefix sum, this "deferred subtraction" stops the running total exactly after the range.
+             *
+             * 🔍 Why result[end] -= amount?
+             * Let’s say you want to add +10 to elements from index 1 to 3 (1-based), i.e., positions 0 to 2 in 0-based indexing.
+             *
+             * result[0] += 10;  // start of range
+             * result[3] -= 10;  // right after end of range
+             * Then during prefix sum:
+             *
+             * index 0 → +10
+             *
+             * index 1 → +10
+             *
+             * index 2 → +10
+             *
+             * index 3 → no more +10 (it’s subtracted here)
+             *
+             * So the effect of amount stops at end.
+             */
             if (end < A) {
                 result[end] -= coins;
             }
