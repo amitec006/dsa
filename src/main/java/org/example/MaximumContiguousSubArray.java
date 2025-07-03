@@ -10,6 +10,7 @@ public class MaximumContiguousSubArray {
         System.out.println(new MaximumContiguousSubArray().maxSubArray(A));
     }
 
+    // Kadane's Algorithm
     public int maxSubArray(int[] A) {
         int max_so_far = A[0];
         int current_max = A[0];
