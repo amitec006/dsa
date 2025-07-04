@@ -16,6 +16,20 @@ public class EveryElementsAppearThriceExceptOneFindThatNumber {
 
     }
 
+    /**
+     * For each bit position (0 to 31):
+     *
+     * Count how many numbers in the array have that bit set (1)
+     *
+     * If the total count at that bit position is not a multiple of 3, then the unique number has that bit set
+     *
+     * Set that bit in the result
+     *
+     * This works because numbers appearing 3 times will cancel out, and only the unique number’s bits will remain.
+     * @param A
+     * @return
+     */
+
     public int singleNumber(final int[] A) {
         int result = 0;
         for (int i = 0;i < 32; i++) {
