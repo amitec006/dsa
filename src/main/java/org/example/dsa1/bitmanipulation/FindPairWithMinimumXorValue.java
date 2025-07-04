@@ -15,6 +15,14 @@ public class FindPairWithMinimumXorValue {
 
     }
 
+    /**
+     * For XOR to be minimum,
+     * the two numbers should be as close as possible in value.
+     * This is because XOR of two similar numbers yields a smaller result.
+     * @param A
+     * @return
+     */
+
     public int findMinXor(int[] A) {
         Arrays.parallelSort(A);
         int minXor = Integer.MAX_VALUE;

@@ -55,4 +55,49 @@ public class StrangeEquality {
         }
         return n;
     }
+
+    /**
+     * For two numbers a and b,
+     *
+     * a + b == a ^ b if and only if there are no carry bits when adding them.
+     *
+     * In binary, a carry occurs only when both bits are 1.
+     * So for X + A == X ^ A, this is true iff X & A == 0
+     * (similarly, Y & A == 0).
+     *
+     * So the requirement reduces to:
+     *
+     * ✅ New Conditions
+     * X < A and X & A == 0 → find largest such X
+     *
+     * Y > A and Y & A == 0 → find smallest such Y
+     *
+     * Then return X ^ Y.
+     *
+     * ✅ Efficient Algorithm
+     * We can loop downward from A - 1 to 0 to find X, and upward from A + 1 to a reasonable upper bound to find Y.
+     */
+
+    public static int findXorOfXandY(int A) {
+        int X = -1;
+        int Y = -1;
+
+        // Find X < A such that (X & A) == 0
+        for (int i = A - 1; i >= 0; i--) {
+            if ((i & A) == 0) {
+                X = i;
+                break;
+            }
+        }
+
+        // Find Y > A such that (Y & A) == 0
+        for (int i = A + 1; ; i++) {
+            if ((i & A) == 0) {
+                Y = i;
+                break;
+            }
+        }
+
+        return X ^ Y;
+    }
 }
