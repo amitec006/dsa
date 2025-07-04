@@ -51,4 +51,53 @@ public class AllIntegerAppearTwiceExceptTwoElementsFindThose {
             return new int[]{jthUnsetBit, jthSetBit};
         }
     }
+
+    /**
+     * XOR all elements in the array
+     *
+     * The result will be X ^ Y (where X and Y are the two unique numbers), because duplicates cancel out.
+     *
+     * Find the rightmost set bit (any set bit) in X ^ Y
+     *
+     * This bit must differ between X and Y → use it to separate numbers into two groups
+     *
+     * Divide the array into 2 groups:
+     *
+     * Group 1: Numbers with that bit set
+     *
+     * Group 2: Numbers with that bit not set
+     *
+     * XOR each group separately
+     *
+     * Duplicates cancel out → you'll be left with X in one group and Y in the other
+     * @param A
+     * @return
+     */
+
+    public int[] singleNumber(final int[] A) {
+        int xor = 0;
+
+        // Step 1: XOR all elements → gives X ^ Y
+        for (int num : A) {
+            xor ^= num;
+        }
+
+        // Step 2: Find rightmost set bit (mask)
+        int mask = xor & -xor;
+
+        int x = 0, y = 0;
+
+        // Step 3: Divide numbers into two groups based on the mask bit
+        for (int num : A) {
+            if ((num & mask) == 0) {
+                x ^= num;
+            } else {
+                y ^= num;
+            }
+        }
+
+        // Step 4: Return in sorted order
+        return x < y ? new int[]{x, y} : new int[]{y, x};
+    }
+
 }
