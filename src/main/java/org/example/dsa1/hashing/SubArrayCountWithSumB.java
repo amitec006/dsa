@@ -19,6 +19,7 @@ public class SubArrayCountWithSumB {
 
     public int solve(int[] A, int B) {
         Map<Long,Long> map = new HashMap<>();
+        //for correctly counting subarrays that start from index 0 and have sum equal to B.
         map.put(0L,1L);
         long sum = 0;
         long count = 0;

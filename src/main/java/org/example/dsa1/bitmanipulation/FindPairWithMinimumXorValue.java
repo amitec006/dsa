@@ -23,6 +23,29 @@ public class FindPairWithMinimumXorValue {
      * @return
      */
 
+    public static int findXorOfXandY(int A) {
+        int X = -1;
+        int Y = -1;
+
+        // Find the greatest X < A such that (X & A) == 0
+        for (int i = A - 1; i >= 0; i--) {
+            if ((i & A) == 0) {
+                X = i;
+                break;
+            }
+        }
+
+        // Find the smallest Y > A such that (Y & A) == 0
+        for (int i = A + 1; ; i++) {
+            if ((i & A) == 0) {
+                Y = i;
+                break;
+            }
+        }
+        return X ^ Y;
+    }
+
+    //Not working for all test cases
     public int findMinXor(int[] A) {
         Arrays.parallelSort(A);
         int minXor = Integer.MAX_VALUE;

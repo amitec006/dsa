@@ -33,5 +33,26 @@ public class CountPairDifference {
         }
         return count % mod;
     }
+
+    public int countPairsWithDiff(int[] A, int B) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        int count = 0;
+
+        // Count frequencies
+        for (int num : A) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Count valid pairs
+        for (int num : A) {
+            int target = num - B;
+            if (freqMap.containsKey(target)) {
+                count += freqMap.get(target);
+            }
+        }
+
+        return count;
+    }
+
 }
 

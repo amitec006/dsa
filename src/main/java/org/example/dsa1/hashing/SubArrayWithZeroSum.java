@@ -30,4 +30,22 @@ public class SubArrayWithZeroSum {
         return 0;
     }
 
+    public int hasZeroSumSubarray(int[] A) {
+        Set<Integer> prefixSums = new HashSet<>();
+        int sum = 0;
+
+        for (int num : A) {
+            sum += num;
+
+            if (sum == 0 || prefixSums.contains(sum)) {
+                return 1;
+            }
+
+            prefixSums.add(sum);
+        }
+
+        return 0;
+    }
+
+
 }

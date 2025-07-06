@@ -58,4 +58,115 @@ public class PairSumDivisibleByM {
         }
         return (int)ans%modulo;
     }
+
+    /*Create a frequency array mod[B], where mod[i] is the count of numbers with remainder i when divided by B.
+    *
+    *For each valid remainder pair (i, j) such that (i + j) % B == 0, count the number of combinations:
+    *
+    *If i == j, use combination formula: mod[i] * (mod[i] - 1) / 2
+    *
+    *If i + j == B, use: mod[i] * mod[B - i]
+    */
+
+
+    /**
+     *
+     *1. Pairs with remainder 0
+     *
+     * count += (mod[0] * (mod[0] - 1)) / 2;
+     * Explanation:
+     *
+     * Any two numbers whose remainders are both 0 (i.e., divisible by B) will always have a sum divisible by B.
+     *
+     * So we find how many such numbers exist: mod[0].
+     *
+     * Then we compute how many unique pairs can be formed from them using combination formula:
+     *
+     * 📌 Example:
+     * If mod[0] = 3 (i.e., 3 numbers divisible by B),
+     * n * (n - 1) / 2
+     *
+     * then total such pairs = 3 * (3 - 1) / 2 = 3.
+     *
+     * 🔹2. Pairs with remainder i and B - i
+     *
+     * for (int i = 1; i <= B / 2; i++) {
+     *     if (i != B - i) {
+     *         count += mod[i] * mod[B - i];
+     *     }
+     * }
+     * Explanation:
+     *
+     * If one number has remainder i, and another has remainder B - i, then:
+     *
+     * (i+(B−i))%B=B%B=0
+     * → So their sum is divisible by B.
+     *
+     * ✅ So we pair elements from mod[i] and mod[B - i].
+     *
+     * 📌 Example:
+     * If B = 5, and:
+     *
+     * mod[1] = 2 (2 numbers with remainder 1)
+     *
+     * mod[4] = 3 (3 numbers with remainder 4)
+     * → Total valid pairs = 2 * 3 = 6
+     *
+     * The if (i != B - i) is used to avoid double-counting and special case.
+     *
+     * 🔹3. Handle the middle remainder if B is even
+     *
+     * if (B % 2 == 0) {
+     *     count += (mod[B / 2] * (mod[B / 2] - 1)) / 2;
+     * }
+     * Explanation:
+     *
+     * When B is even, there’s a special case for remainder B / 2.
+     * For example: if B = 6, then B/2 = 3.
+     * → So mod[3] contains numbers with remainder 3.
+     *
+     * If you pair two such numbers:
+     * 3 + 3 = 6 → divisible by 6
+     *
+     * So again, use combination formula for choosing 2 out of mod[B/2] elements:
+     *
+     * mod[B/2]⋅(mod[B/2]−1)
+     *
+     * 📌 Example:
+     * If mod[3] = 4,
+     * then valid pairs = 4 * (4 - 1) / 2 = 6
+     *
+     * This part only applies when B is even.
+     *
+     * 🔁 Why this separation?
+     * We must avoid double-counting (e.g., pairing mod[1] with mod[4] and then also mod[4] with mod[1])
+     *
+     * And we must handle special cases like mod[0] and mod[B/2] using combinations because they pair within themselves.
+     * */
+    public int countDivisiblePairs(int[] A, int B) {
+        int[] mod = new int[B];
+        for (int a : A) {
+            int r = a % B;
+            if (r < 0) r += B; // handle negative values
+            mod[r]++;
+        }
+
+        int count = 0;
+        // Pairs with remainder 0
+        count += (mod[0] * (mod[0] - 1)) / 2;
+
+        // Pairs with remainder i and B - i
+        for (int i = 1; i <= B / 2; i++) {
+            if (i != B - i) {
+                count += mod[i] * mod[B - i];
+            }
+        }
+
+        // If B is even, handle the midpoint remainder separately
+        if (B % 2 == 0) {
+            count += (mod[B / 2] * (mod[B / 2] - 1)) / 2;
+        }
+
+        return count;
+    }
 }
