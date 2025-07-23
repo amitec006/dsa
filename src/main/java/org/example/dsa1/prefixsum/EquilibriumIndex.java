@@ -69,4 +69,25 @@ public class EquilibriumIndex {
         }
         return -1;
     }
+
+    public int solve(int[] A) {
+        long[] ps = new long[A.length];
+        for (int i= 0; i < A.length; i++) {
+            if (i == 0) {
+                ps[i] = A[i];
+            } else {
+                ps[i] = ps[i-1] + A[i];
+            }
+        }
+
+        int index = 1;
+        //if index 0 is equilibrium index
+        if ((ps[ps.length-1] - ps[0]) == 0) return 0;
+
+        for (int i = 1; i < ps.length; i++) {
+            if (ps[index-1] == (ps[ps.length-1] - ps[index])) {return index;}
+            index++;
+        }
+        return -1;
+    }
 }
